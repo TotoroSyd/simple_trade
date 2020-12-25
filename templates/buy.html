@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-left headings">Buy</h1>
+    <div class="rounded row">
+        <div class="col-7 rounded">
+            <form class="py-3 px-5 headings" action="/buy" method="post">
+                <div class="row-cols-1 py-3">
+                    <label for="stockSymbolToBuy" class="col text-left"><h5>Stock Symbol</h5></label>
+                    <input type="text" name="stockSymbolToBuy" class="col form-control-lg" required>
+                </div>
+                <div class="row-cols-1 py-3">
+                    <label for="numbersOfSharesToBuy" class="col text-left"><h5>Shares</h5></label>
+                    <input type="number" min="1" name="numbersOfSharesToBuy" class="col form-control-lg" required>
+                </div>
+                <div class="row-cols-1 py-3">
+                    <label for="biddingValue" class="col text-left"><h5>Bidding Value Per Share</h5></label>
+                    <input type="number" min="0" name="biddingValue" class="col form-control-lg" required>
+                </div>
+                <button type="submit" class="btn-lg btn" name="buy" value="buy">Buy</button>
+            </form>
+        </div>
+
+        {% if buy_receipt_show == True %}
+        <div class="col-5 rounded background_navy_blue text-white shadow py-5">
+            <form action="/buy" method="post">
+                <h3>Shares Purchase Confirmation</h3>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col-4">
+                      <h5 class="text-left">Company</h5>
+                    </div>
+                    <div class="col-8">
+                      <h5 class="text-left">{{quote['name']}}</h5>
+                      <input name="name" type="hidden" value={{quote['name']}}>
+                    </div>
+                </div>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col-4">
+                      <h5 class="text-left">Stock Symbol</h5>
+                    </div>
+                    <div class="col-8">
+                      <h5 class="text-left">{{quote['symbol']}}</h5>
+                      <input name="stock_symbol" type="hidden" value={{quote['symbol']}}>
+                    </div>
+                </div>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col-4">
+                      <h5 class="text-left">Shares</h5>
+                    </div>
+                    <div class="col-8">
+                      <h5 class="text-left">{{shares}}</h5>
+                      <input name="shares" type="hidden" value={{shares}}>
+                    </div>
+                </div>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col-4">
+                      <h5 class="text-left">Per Share(USD)</h5>
+                    </div>
+                    <div class="col-8">
+                      <h5 class="text-left">{{bidding_value}}</h5>
+                      <input name="bidding_value" type="hidden" value={{bidding_value}}>
+                    </div>
+                </div>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col-4">
+                      <h5 class="text-left">Total (USD)</h5>
+                    </div>
+                    <div class="col-8">
+                      <h5 class="text-left">{{total}}</h5>
+                    </div>
+                </div>
+                {% if disable_button == "disabled" and error == "insufficient" %}
+                <div style="background-color:red"><p>Insufficient cash in the account</p></div>
+                <button type="submit" class="btn btn-lg" style="background-color:green; color:white;" name="confirm_to_buy" {{disable_button}}>Confirm</button>
+                {% elif disable_button == "disabled" and error == "stock not found" %}
+                <div style="background-color:red"><p>Stock Not Found</p></div>
+                <button type="submit" class="btn btn-lg" style="background-color:green; color:white;" name="confirm_to_buy" {{disable_button}}>Confirm</button>
+                {% else %}
+                <button type="submit" class="btn btn-lg" style="background-color:green; color:white;" name="confirm_to_buy">Confirm</button>
+                {% endif %}
+            </form>
+        </div>
+
+        {% else %}
+        <div class="col-5 rounded shadow">
+          <img src="https://images.unsplash.com/photo-1512075135822-67cdd9dd7314?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80" style="height:500px;width:600px;">
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

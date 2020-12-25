@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <!--<img alt="{{ top }}" class="border" src="http://memegen.link/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?alt=https://i.imgur.com/CsCgN7Ll.png" title="{{ top }}">-->
+    <div style="background-color:#FEC702" class="row align-items-center p-5">
+        <img alt="a dinosaur rawring. an error message to users" src="static/error_transpa.png" class="col">
+        <div class="col">
+            <h1 class="display-1 text-left">Oops!</h1>
+            <h5 class="text-left">We heard something broken.</h5>
+            <h5 class="text-left">You can go back to the Homepage while we fix things.</h5>
+        </div>
+    </div>
+{% endblock %}

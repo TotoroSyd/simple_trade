@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Porfolio
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-left headings">{{ today }}</h1>
+    {% if empty_porfolio == True %}
+      <p class="pt-5">Welcome to $impleTrade. Your porfolio is currently empty.</p>
+      <p>We gave you $10,000 to <a href="/buy">start investing</a> today.</p>
+    {% else %}
+    <div class="text-white shadow rounded table-scrollable">
+        <table class="table table-sortable table-borderless">
+          <thead>
+            <tr class="background_navy_blue">
+              <th class="text-left" scope="col">Company</th>
+              <th scope="col">Code</th>
+              <th scope="col">Shares</th>
+              <th scope="col">Value Per Share</th>
+              <th scope="col">Total Value</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <div>
+          <tbody>
+            {% for investment in porfolio %}
+            <tr class="headings">
+              <th class="text-left" scope="row">{{ investment['company'] }}</th>
+              <td>{{ investment['stock_code'] }}</td>
+              <td>{{ investment['quantity'] }}</td>
+              <td>{{ investment['value_per_share'] }}</td>
+              <td>{{ investment['total_value'] }}</td>
+              <td><a href="/sell"><button class="btn">Sell</button></a></td>
+            </tr>
+            {% endfor %}
+            <tr class="headings">
+              <th scope="row" colspan="4" class="text-left">CASH</th>
+              <td>{{ cash[0]['cash'] }}</td>
+              <td></td>
+            </tr>
+            <tr class="headings">
+              <th scope="row" colspan="4" class="text-left"><h3>PORTFOLIO</h3></th>
+              <td><h3>{{ sum_val }}</h3></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    <div class="small text-left text-muted pt-4">
+      <p>Refers to the latest relevant price of the security which is derived from multiple sources. We first look for an IEX real time price. If an IEX real time price is older than 15 minutes, 15 minute delayed market price is used.
+      If a 15 minute delayed price is not available, we will use the current day close price.
+      If a current day close price is not available, we will use the last available closing price (listed below as previousClose) IEX real time price represents trades on IEX only.
+      Trades occur across over a dozen exchanges, so the last IEX price can be used to indicate the overall market price.
+      15 minute delayed prices are from all markets using the <a href="https://www.investopedia.com/terms/n/national-market-system-plan.asp">Consolidated Tape</a>. This will not included pre or post market prices.</p>
+    </div>
+    {% endif %}
+{% endblock %}

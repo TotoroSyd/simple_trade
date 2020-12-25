@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-left headings">Buy</h1>
+    <div class="rounded row">
+          <h5>Shares Purchase Confirmation</h5>
+          <div class="row justify-content-start pl-5 py-3">
+              <div class="col-5">
+                <h5 class="text-left">Stock Symbol</h5>
+              </div>
+              <div class="col-7">
+                <h5 class="text-left">{{ stock_symbol }}</h5>
+              </div>
+          </div>
+          <div class="row justify-content-start pl-5 py-3">
+              <div class="col-5">
+                <h5 class="text-left">Shares</h5>
+              </div>
+              <div class="col-7">
+                <h5 class="text-left">{{ shares }} ({{ bidding_value }} USD / share)</h5>
+              </div>
+          </div>
+          <div class="row justify-content-start pl-5 py-3">
+              <div class="col-5">
+                <h5 class="text-left">Total</h5>
+              </div>
+              <div class="col-7">
+                <h5 class="text-left">{{ total }} USD</h5>
+              </div>
+          </div>
+          <button type="button" class="btn" style="background-color:red; color:white;"data-dismiss="modal">Close</button>
+          <button type="submit" class="btn" style="background-color:green; color:white;">Confirm</button>
+    </div>
+{% endblock %}

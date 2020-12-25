@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <div>
+        <h1>Search for stock quote and start earning</h1>
+        <div class="py-5">
+            <form action="/search_stock" method="post" class="form-inline row mx-0">
+                <div class="form-group mb-2 col-10">
+                    <input type="text" class="form-control w-100" autocomplete="off" autofocus class="form-control" name="stock_code" placeholder="AAPL">
+                </div>
+                <button type="submit" class="btn headings mb-2 col-2">Quote</button>
+            </form>
+        </div>
+        {% if stock_found == True %}
+        <div class="text-white background_navy_blue row justify-content-center align-items-center rounded shadow">
+            <div class="col text-left p-5">
+                <h3>{{ quote['name'] }} ( {{ quote['symbol'] }} )</h3>
+                <br>
+                <p>LATEST PRICE: {{ quote['price'] }}</p>
+                <a href="https://iexcloud.io" class="text-muted">IEX Cloud</a>
+            </div>
+            <div class="col">
+                <a href="/buy"><button class="btn headings btn-lg ml-4 w-25" type="button">Buy</button></a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

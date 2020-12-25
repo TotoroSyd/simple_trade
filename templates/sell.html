@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-left headings">Sell</h1>
+    <div class="rounded row">
+        <div class="col-7 rounded">
+            <form class="py-3 px-5 headings" action="/sell" method="post">
+                <div class="row-cols-1 py-3">
+                    <label for="stockSymbolToSell" class="col text-left"><h5>Stock Symbol</h5></label>
+                    <select class="col form-control-lg" name="stockSymbolToSell" required>
+                        {% for stock in stock_code %}
+                        <option class="overflow-auto" value={{stock['stock_code']}}>{{ stock['stock_code'] }}</option>
+                        {% endfor %}
+                    </select>
+                    <!--<input type="text" name="stockSymbolToSell" class="col form-control-lg" required>-->
+                </div>
+                <div class="row-cols-1 py-3">
+                    <label for="numberOfSharesToSell" class="col text-left"><h5>Shares</h5></label>
+                    <input type="number" min="1" name="numberOfSharesToSell" class="col form-control-lg" required>
+                </div>
+                <div class="row-cols-1 py-3">
+                    <label for="sellingValue" class="col text-left"><h5>Selling Value Per Share</h5></label>
+                    <input type="number" min="0" name="sellingValue" class="col form-control-lg" required>
+                </div>
+                <button type="submit" class="btn-lg btn" name="sell" value="sell">Sell</button>
+
+            </form>
+        </div>
+
+        {% if sell_receipt_show == True %}
+        <div class="col-5 rounded background_navy_blue text-white shadow py-5">
+            <form action="/sell" method="post">
+                <h3>Shares Selling Confirmation</h3>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col-4">
+                      <h5 class="text-left">Company</h5>
+                    </div>
+                    <div class="col-8">
+                      <h5 class="text-left">{{company}}</h5>
+                      <input name="name" type="hidden" value={{company}}>
+                    </div>
+                </div>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col">
+                      <h5 class="text-left">Stock Symbol</h5>
+                    </div>
+                    <div class="col">
+                      <h5 class="text-left">{{stock_symbol}}</h5>
+                      <input name="stock_symbol" type="hidden" value={{stock_symbol}}>
+                    </div>
+                </div>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col">
+                      <h5 class="text-left">Shares</h5>
+                    </div>
+                    <div class="col">
+                      <h5 class="text-left">{{shares}}</h5>
+                      <input name="shares" type="hidden" value={{shares}}>
+                    </div>
+                </div>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col">
+                      <h5 class="text-left">Per Share(USD)</h5>
+                    </div>
+                    <div class="col">
+                      <h5 class="text-left">{{selling_value}}</h5>
+                      <input name="selling_value" type="hidden" value={{selling_value}}>
+                    </div>
+                </div>
+                <div class="row justify-content-start pl-3 py-2">
+                    <div class="col">
+                      <h5 class="text-left">Total (USD)</h5>
+                    </div>
+                    <div class="col">
+                      <h5 class="text-left">{{total}}</h5>
+                    </div>
+                </div>
+                {% if disable_button == "disabled" and error == "insufficient_shares" %}
+                <div style="background-color:red"><p>Insufficient number of available shares in the account</p></div>
+                <button type="submit" class="btn btn-lg" style="background-color:green; color:white;" name="confirm_to_sell" {{disable_button}}>Confirm</button>
+                {% else %}
+                <button type="submit" class="btn btn-lg" style="background-color:green; color:white;" name="confirm_to_sell">Confirm</button>
+                {% endif %}
+            </form>
+        </div>
+
+        {% else %}
+        <div class="col-5 rounded shadow">
+          <img src="https://images.unsplash.com/photo-1512075135822-67cdd9dd7314?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=750&q=80" style="height:500px;width:600px;">
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

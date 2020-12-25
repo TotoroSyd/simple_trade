@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-left headings">Transaction History</h1>
+    <div class="shadow rounded table-scrollable">
+        <table class="table table-sortable">
+          <thead>
+            <tr class="background_navy_blue text-white">
+              <th scope="col">Code</th>
+              <th scope="col">Shares</th></th>
+              <th scope="col">Value Per Share</th>
+              <th scope="col">Total Value</th>
+              <th scope="col">Date</th>
+              <th scope="col">Transaction</th>
+            </tr>
+          </thead>
+          {% for transaction in history %}
+          <tbody>
+            <tr>
+              <th scope="row">{{ transaction['stock_code'] }}</th>
+              <td>{{ transaction['quantity'] }}</td>
+              <td>${{ transaction['val_per_share'] }}</td>
+              <td>${{ transaction['val_per_share'] * transaction['quantity'] }}</td>
+              <td>{{ transaction['date'] }}</td>
+              <td>{{ transaction['type'] }}</td>
+            </tr>
+          </tbody>
+          {% endfor %}
+        </table>
+    </div>
+
+{% endblock %}
