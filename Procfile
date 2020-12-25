@@ -1,1 +1,1 @@
-web: gunicorn application:app
+git push heroku master
