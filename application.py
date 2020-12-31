@@ -15,6 +15,7 @@ from helpers import apology, login_required, lookup, usd, lookup_test
 
 # Configure application
 app = Flask(__name__)
+app.secret_key = "dev"
 
 # Global variables
 stock_found = False
