@@ -53,6 +53,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 # #When hosting with Heroku using Postgresql
 db = SQL(os.getenv("DATABASE_URL"))
 
+Session(app)
+
 # Make sure API key is set
 if not os.environ.get("API_KEY"):
     raise RuntimeError("API_KEY not set")
