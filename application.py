@@ -46,10 +46,11 @@ app.config["SESSION_PERMANENT"] = False
 # Specifies which type of session interface to use. Builtin: null, redis, memcached, filesystem, mongodb, sqlalchemy
 app.config["SESSION_TYPE"] = "sqlalchemy"
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://tkyqralhqgnwei:fd90f1a34907ed7e6c3762fa8ceac4308be0dd41cbd5b4c9d6f793d1e58d1c54@ec2-34-192-122-0.compute-1.amazonaws.com:5432/dllioahjsdb4e"
+app.config["SESSION_SQLACLCHEMY"] = SQLAlchemy(app)
 # This class is used to add Server-side Session to one or more Flask applications.
 # initialize the instance with a very specific Flask application
-Session(app)
-
+session = Session(app)
+session.app.session_interface.db.create_all()
 # Configure CS50 Library to use SQLite database
 # #default from CS50 codebase
 # db = SQL("sqlite:///finance.db")
