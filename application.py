@@ -38,27 +38,20 @@ app.jinja_env.filters["usd"] = usd
 
 # Configure session to use filesystem (instead of signed cookies)
 # The directory where session files are stored. Default to use flask_session directory under current working directory.
-# app.config["SESSION_FILE_DIR"] = mkdtemp()
+app.config["SESSION_FILE_DIR"] = mkdtemp()
 # Whether use permanent session or not, default to be True
 # By default, all non-null sessions in Flask-Session are permanent.
 # Therefore, we must set it to False so Session will expire when logging out
 app.config["SESSION_PERMANENT"] = False
 # Specifies which type of session interface to use. Builtin: null, redis, memcached, filesystem, mongodb, sqlalchemy
-app.config["SESSION_TYPE"] = "sqlalchemy"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://tkyqralhqgnwei:fd90f1a34907ed7e6c3762fa8ceac4308be0dd41cbd5b4c9d6f793d1e58d1c54@ec2-34-192-122-0.compute-1.amazonaws.com:5432/dllioahjsdb4e"
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-app.config["SESSION_SQLACLCHEMY"] = SQLAlchemy(app)
+app.config["SESSION_TYPE"] = "filesystem"
 # This class is used to add Server-side Session to one or more Flask applications.
 # initialize the instance with a very specific Flask application
-session = Session(app)
-session.app.session_interface.db.create_all()
 # Configure CS50 Library to use SQLite database
 # #default from CS50 codebase
 # db = SQL("sqlite:///finance.db")
 # #When hosting with Heroku using Postgresql
 db = SQL(os.getenv("DATABASE_URL"))
-# #When hosting with Heroku using SQLAlchemy
-# db = SQLAlchemy(app)
 
 # Make sure API key is set
 if not os.environ.get("API_KEY"):
